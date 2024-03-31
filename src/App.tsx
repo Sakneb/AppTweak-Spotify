@@ -1,34 +1,52 @@
-import "./App.css";
-
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { authSelectors } from "./containers/auth/selectors";
-import logo from "./logo.svg";
+import SearchTrack from "./components/SearchTrack";
+import Playlist from "./components/Playlist";
+import { Box, Container } from "@mui/material";
+import TrackList from "./components/TrackList";
+import "./App.css";
 
 const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const user = useSelector(authSelectors.getUser);
+  const [isTrackListOpen, setIsTrackListOpen] = useState(false);
 
-  // TODO: You can access user data and now fetch user's playlists
-  console.log(user);
+
+  const samplePlaylist = {
+    name: "My playlist",
+    image: "/images/cover.jpg",
+    user: "Aurora Nova",
+  };
+
+  const toggleTrackList = () => {
+    setIsTrackListOpen((prev) => !prev);
+  };
+
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Container sx={{ padding: "10px" }}>
+        <Box sx={{ marginBottom: "40px" }}>
+          <SearchTrack
+            onSearch={function (query: string): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            padding: "20px",
+            fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <Playlist
+            playlist={samplePlaylist}
+            onPlaylistClick={toggleTrackList}
+          />
+          {isTrackListOpen && <TrackList />}
+        </Box>
+      </Container>
     </div>
   );
 };

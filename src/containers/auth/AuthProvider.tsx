@@ -14,6 +14,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
   const dispatch = useDispatch();
   const accessToken = useSelector(authSelectors.getAccessToken);
 
+  
   const { location } = window;
   const regex = /.*access_token=(?<accesToken>[^&]*)/gi;
   const params = regex.exec(location.hash);

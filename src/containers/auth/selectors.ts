@@ -8,4 +8,5 @@ export const authSelectors = {
   getAccessToken: createSelector(selectSelf, (auth) => auth.accessToken),
   getUser: createSelector(selectSelf, (auth) => auth.user),
   getStatus: createSelector(selectSelf, (auth) => auth.status),
+  getTrack: createSelector(selectSelf, (auth) => auth.status)
 };

@@ -4,11 +4,12 @@
 
 To evaluate your programming skills, we would like to share a fun challenge with you! The main goal will be to create a simplified version of Spotify using the React Framework. For this, you will have to use the Spotify API (c.f. setup instructions) to fetch data, add new ones, and update the UI accordingly.
 
-
 ### Description of the feature
+
 For this particular Spotify version, we want to let our users create new Playlists, and add tracks to them. Every feature listed below is mandatory and should be implemented as part of this challenge.
 
 As a user (currently logged in):
+
 + I should be able to create a new playlist and specify a name and optionally a description.
 + I should be able to consult a given playlist's content (every tracks added to it).
 + I should be able to select an existing playlist and display its content.
@@ -16,10 +17,10 @@ As a user (currently logged in):
 + I should be able to add any search results in the currently selected playlist.
 + I should be able to remove a given track from a playlist.
 
-
 ### Nice to have
 
 If you want to play a bit more with it, you can add one or more of the following features:
+
 + I should be able to edit a playlist's details.
 + I should be able to sort the tracks by name, artist, duration, and so on (every track's field).
 + Allow the user to reorder tracks within a given playlist.
@@ -37,7 +38,6 @@ To carry out this project, we ask you to use the following: React (latest versio
 
 To polish the UI a bit, feel free to add any library that suits your needs: ElementUI, Material, Bootstrap, ...
 
-
 ## Setup
 
 To use the Spotify Web API, here are the instructions you need to follow:
@@ -53,30 +53,28 @@ To use the Spotify Web API, here are the instructions you need to follow:
 
 **Note 2**: You don’t need any server. You only need to create a React app that will consume the Spotify API.
 
+## Timing & how to get help
 
-## Timing & how to get help 
-
-We will give you a **maximum of 10 days** to send us your code. If you finish it before, that's perfect! In any case, we will organize a half-way meeting of 15minutes 6 or 7 days after you receive the challenge. The objective is to do a quick ETA of your progress and to answer all the questions you might have. Our culture at AppTweak is defined by four values, Learn and Play are two of them. We learn from each other, thrive for developing new skills and developing ourselves. But we also know there isn't one best way of doing things, that’s why we like to explore. So we value people not afraid of asking for help when they don’t know, and willing to try new ideas.  
+We will give you a **maximum of 10 days** to send us your code. If you finish it before, that's perfect! In any case, we will organize a half-way meeting of 15minutes 6 or 7 days after you receive the challenge. The objective is to do a quick ETA of your progress and to answer all the questions you might have. Our culture at AppTweak is defined by four values, Learn and Play are two of them. We learn from each other, thrive for developing new skills and developing ourselves. But we also know there isn't one best way of doing things, that’s why we like to explore. So we value people not afraid of asking for help when they don’t know, and willing to try new ideas.
 
 Therefore, if something is not clear, if you are stuck or have a question about the direction to take, really do not hesitate to reach out to us by email. You will receive additional information separately.
 
 Finally, in order to share your final work with us, push it on a public repo on Github, Gitlab, or Bitbucket.
 
-
 ## Wireframes
 
 The wireframes will send separately.
 
-## How to run yhis project?
+## How to run this project?
 
 In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ## Learn More
