@@ -9,6 +9,9 @@ import Paper from "@mui/material/Paper";
 import styled from "@emotion/styled";
 import { Box, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import axios from "axios";
+import { authSelectors } from "../containers/auth/selectors";
+import { useSelector } from "react-redux";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   color: "rgba(167,167,167,255) ",
@@ -19,25 +22,27 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const fontStyle = {
   fontFamily: "CircularSpotifyTxT-Black, sans-serif",
 };
-function createData(
-  id: number,
-  track: string,
-  artist: string,
-  albumName: string,
-  albumCover: string,
-  date: number
-) {
-  return { id, track, artist, albumName, albumCover, date };
-}
 
-const rows = [
-  createData(1, "track name", "artist", "album name", "./images/cover.jpg", 24),
-  createData(2, "track name", "artist", "album name", "./images/cover.jpg", 24),
-  createData(3, "track name", "artist", "album name", "./images/cover.jpg", 67),
-  createData(4, "track name", "artist", "album name", "./images/cover.jpg", 49),
-];
+export default function TrackList({ trackList, playlistID, reset }: any) {
+  const accessToken = useSelector(authSelectors.getAccessToken);
 
-export default function TrackList() {
+  let removeTrack = (trackURI: string) => {
+    if (playlistID && trackURI) {
+      axios
+        .delete(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          data: {
+            tracks: [{ uri: trackURI }],
+          },
+        })
+        .then((response) => {
+          reset();
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+    }
+  };
   return (
     <TableContainer
       component={Paper}
@@ -54,9 +59,9 @@ export default function TrackList() {
         </TableHead>
 
         <TableBody>
-          {rows.map((row) => (
+          {trackList.map((item: any, index: number) => (
             <TableRow
-              key={row.id}
+              key={item.track.id}
               sx={{
                 "&:hover": {
                   backgroundColor: "rgba(90,89,89,255)",
@@ -67,13 +72,14 @@ export default function TrackList() {
               }}
             >
               <StyledTableCell sx={{ width: "1%" }} component="th" scope="row">
-                {row.id}
+                {index + 1}
               </StyledTableCell>
-              <StyledTableCell sx={{ width: "40%" }}>
+
+              <StyledTableCell sx={{ width: "30%" }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <img
-                    src={row.albumCover}
-                    alt={row.track}
+                    src={item.track.album.images[0].url}
+                    alt={item.track.name}
                     style={{ width: "50px", height: "50px" }}
                   />
                   <Box>
@@ -83,7 +89,7 @@ export default function TrackList() {
                       }}
                       variant="subtitle1"
                     >
-                      {row.track}
+                      {item.track.name}
                     </Typography>
 
                     <Typography
@@ -93,26 +99,32 @@ export default function TrackList() {
                       }}
                       variant="body2"
                     >
-                      {row.artist}
+                      {item.track.artists[0].name}
                     </Typography>
                   </Box>
                 </Box>
               </StyledTableCell>
               <StyledTableCell sx={{ width: "30%" }}>
-                {row.albumName}
+                {item.track.album.name}
               </StyledTableCell>
 
               <StyledTableCell
                 sx={{
+                  position: "relative",
                   width: "13%",
                 }}
               >
-                {row.date}
+                {item.track.album.release_date}
                 <Button
                   sx={{
+                    top: "25%",
+                    position: "absolute",
                     color: "rgba(167,167,167,255)",
                     backgroundColor: "transparent",
                     "&:hover": { backgroundColor: "transparent" },
+                  }}
+                  onClick={() => {
+                    removeTrack(item.track.uri);
                   }}
                 >
                   <DeleteOutlineOutlinedIcon

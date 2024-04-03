@@ -8,7 +8,6 @@ import Home from "./views/Home";
 const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const user = useSelector(authSelectors.getUser);
-
   return (
     <div className="App">
       <CssBaseline />

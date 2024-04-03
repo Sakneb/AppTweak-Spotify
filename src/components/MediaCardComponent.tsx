@@ -6,29 +6,52 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
+const fontStyle = {
+  fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+};
 
-export default function MediaCardComponent() {
-  const theme = useTheme();
-
+export default function MediaCardComponent({ item }: any) {
   return (
-    <Card sx={{ display: "flex" }}>
+    <Card
+      sx={{ display: "flex", background: "transparent", boxShadow: "none" }}
+    >
       <CardMedia
         component="img"
         sx={{ width: 151 }}
-        image="/static/images/cards/live-from-space.jpg"
+        image={item.images ? item.images[0].url : "/images/avatar.jpg"}
         alt="Live from space album cover"
       />
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="h5">
-            Live From Space
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "trasparent",
+        }}
+      >
+        <CardContent
+          sx={{
+            flex: "1 0 auto",
+            color: "white",
+          }}
+        >
+          <Typography component="div" variant="h5" sx={{ ...fontStyle }}>
+            {item.name}
           </Typography>
           <Typography
+            sx={{ background: "transparent", ...fontStyle }}
             variant="subtitle1"
-            color="text.secondary"
+            color="white"
             component="div"
           >
-            Mac Miller
+            {item.owner ? item.owner.display_name : ""}
+          </Typography>
+          <Typography
+            sx={{ background: "transparent", ...fontStyle }}
+            variant="subtitle1"
+            color="white"
+            component="div"
+          >
+            {item.description}
           </Typography>
         </CardContent>
       </Box>

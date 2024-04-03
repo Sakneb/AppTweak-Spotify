@@ -1,10 +1,10 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
+
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import PlaylistModal from "./PlaylistModal";
-import { Box } from "@mui/material";
 
-const AddPlaylist: React.FC = () => {
+const AddPlaylist = ({ resetPlaylist }: any) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -28,7 +28,7 @@ const AddPlaylist: React.FC = () => {
     borderRadius: "999px",
     padding: "0 20px",
     minHeight: "54px",
-    minWidth: "160px",
+    minWidth: "150px",
     textTransform: "uppercase",
     cursor: "pointer",
     fontSize: "13px",
@@ -55,7 +55,7 @@ const AddPlaylist: React.FC = () => {
         <AddRoundedIcon
           sx={{
             position: "relative",
-            fontSize: "20px",
+            fontSize: "30px",
             padding: "5px",
           }}
         />
@@ -70,6 +70,7 @@ const AddPlaylist: React.FC = () => {
         img={"/images/avatar.jpg"}
         description={""}
         headerName={"Add details"}
+        resetPlaylist={resetPlaylist}
       />
     </>
   );

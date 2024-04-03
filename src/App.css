@@ -10,3 +10,12 @@
   font-family: "CircularSpotifyTxT-Black", sans-serif;
   overflow: hidden;
 }
+
+.web-scrollbar::-webkit-scrollbar {
+  width: 15px;
+}
+
+.web-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(40, 40, 40, 255);
+  border-radius: 10px;
+}

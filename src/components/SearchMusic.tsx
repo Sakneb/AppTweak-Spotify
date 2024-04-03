@@ -1,54 +1,122 @@
 import * as React from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import { Box } from "@mui/material";
-import { useEffect } from "react";
+import {
+  Box,
+  Button,
+  styled,
+  Autocomplete,
+  TextField,
+  AutocompleteRenderInputParams,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { authSelectors } from "../containers/auth/selectors";
 import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
 
-export default function SearchMusic() {
-  const [options, setOption] = React.useState([{ label: "" }] as any);
-  const [value, setValue] = React.useState(options[0]);
-  const [open, setOpen] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState("");
-  const [displayPlaylist, setDisplayPlaylist] = React.useState([]);
+interface OptionType {
+  label: string;
+  img: string;
+  uri: string;
+}
+
+const fontStyle = {
+  fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+};
+
+const commonStyles = {
+  borderRadius: "999px",
+  padding: "0 20px",
+  fontSize: "14px",
+  letterSpacing: "2px",
+  transition: "background-color 200ms ease-in-out",
+};
+
+const StyledAutocomplete = styled(Autocomplete)({
+  "& .MuiAutocomplete-inputRoot": {
+    ...commonStyles,
+    color: "white",
+    backgroundColor: "transparent",
+    fontSize: "18px",
+    fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+    alignItems: "center",
+    width: "310px",
+    height: "54px",
+
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "rgba(54, 51, 51, 1)",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#1ED760",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#1DB954",
+    },
+  },
+});
+
+export default function SearchMusic({ playlistID, reset }: any) {
+  const [autocompleteOptions, setAutocompleteOptions] = useState<OptionType[]>(
+    []
+  );
+  const [value, setValue] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState("");
   const accessToken = useSelector(authSelectors.getAccessToken);
 
   useEffect(() => {
-    const request = () => {
-      if (accessToken && inputValue) {
-        axios
-          .get("https://api.spotify.com/v1/search", {
-            headers: { Authorization: `Bearer ${accessToken}` },
-            params: {
-              q: inputValue,
-              type: "track",
-              limit: 50,
-            },
-          })
-          .then((response) => {
-            console.log(response.data);
-            setOption(
-              response.data.tracks.items.map((item: any) => ({
+    if (inputValue && accessToken) {
+      axios
+        .get("https://api.spotify.com/v1/search", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          params: {
+            q: inputValue,
+            type: "track",
+            limit: 50,
+          },
+        })
+        .then((response) => {
+          setAutocompleteOptions(
+            response.data.tracks.items.map(
+              (item: {
+                name: string;
+                album: { images: { url: string }[] };
+                uri: string;
+              }) => ({
                 label: item.name,
-                img: item.album.images[0].url,
-              }))
-            );
-          })
-          .catch((error) => {
-            console.error("There was an error!", error);
-          });
-      }
-    };
-
-    request();
+                img: item.album ? item.album.images[0]?.url : "",
+                uri: item.uri,
+              })
+            )
+          );
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+    }
   }, [accessToken, inputValue]);
 
+  const addTrackToPlaylist = (uri: any) => {
+    if (uri && accessToken && playlistID) {
+      axios
+        .post(
+          `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
+          {
+            uris: [uri],
+          },
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }
+        )
+        .then((response) => {
+          reset();
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+    }
+  };
   return (
-    <div>
-      <Autocomplete
+    <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+      <StyledAutocomplete
         freeSolo
         value={value}
         onChange={(event: any, newValue: any | null) => {
@@ -58,19 +126,12 @@ export default function SearchMusic() {
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);
         }}
-        id="controllable-states-demo"
-        options={options}
-        getOptionLabel={(option: any) => option.label}
-        sx={{
-          width: 350,
-          display: "block",
-        }}
-        renderInput={(params) => <TextField {...params} label="Controllable" />}
-        renderOption={(props, option) => (
+        options={autocompleteOptions}
+        renderOption={(props, option: any) => (
           <Box
             component="li"
             sx={{
-              backgroundColor: "rgba(40,40,40,255)",
+              backgroundColor: "rgba(40,40,40,255) !important",
               color: "white",
               fontFamily: "CircularSpotifyTxT-Black, sans-serif",
               display: "flex",
@@ -79,7 +140,7 @@ export default function SearchMusic() {
               gap: "20px",
               "&:hover": {
                 cursor: "pointer",
-                backgroundColor: "green",
+                backgroundColor: "green !important",
               },
             }}
             {...props}
@@ -96,10 +157,24 @@ export default function SearchMusic() {
             >
               {option.label}
             </span>
-            <AddIcon fontSize="small" />
+
+            <AddIcon
+              fontSize="small"
+              onClick={() => addTrackToPlaylist(option.uri)}
+            />
           </Box>
         )}
+        renderInput={(params: AutocompleteRenderInputParams) => (
+          <TextField
+            {...params}
+            label="Search for a track"
+            variant="outlined"
+            InputLabelProps={{
+              style: { color: "white", ...fontStyle },
+            }}
+          />
+        )}
       />
-    </div>
+    </Box>
   );
 }
