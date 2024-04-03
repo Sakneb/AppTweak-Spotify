@@ -10,7 +10,7 @@ import {
 import ImageUploader from "./ImageUpload";
 import { Box } from "@mui/joy";
 import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import axios from "axios";
 import { authSelectors } from "../containers/auth/selectors";
 
@@ -59,7 +59,6 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
 }) => {
   const [newName, setNewName] = React.useState(name);
   const [newDescription, setNewDescription] = React.useState(description || "");
-  const dispatch = useDispatch();
   const accessToken = useSelector(authSelectors.getAccessToken);
   const user = useSelector(authSelectors.getUser);
 

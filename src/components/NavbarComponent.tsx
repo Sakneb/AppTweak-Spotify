@@ -15,7 +15,7 @@ export default function NavbarComponent({
         <SearchMusic playlistID={playlistID} reset={reset} />
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          <AddPlaylist />
+          <AddPlaylist resetPlaylist={resetPlaylist} />
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <AddPlaylist resetPlaylist={resetPlaylist} />

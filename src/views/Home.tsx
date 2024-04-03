@@ -18,13 +18,22 @@ import axios from "axios";
 
 const drawerWidth = 350;
 
+interface MediaItem {
+  name: string;
+  description?: string;
+  images?: { url: string }[];
+  owner?: {
+    display_name: string;
+  };
+}
+
 const Home: React.FC = () => {
   const user = useSelector(authSelectors.getUser);
   const accessToken = useSelector(authSelectors.getAccessToken);
   const [trackList, setTrackList] = useState<any[]>([]);
   const [playlistID, setPlaylistID] = useState<string>("");
   const [playlist, setPlaylist] = useState<any[]>([]);
-  const [trackDataItem, setTrackDataItem] = useState<any[]>([]);
+  const [trackDataItem, setTrackDataItem] = useState<MediaItem | null>(null);
 
   const showPlaylist = () => {
     axios
@@ -139,7 +148,7 @@ const Home: React.FC = () => {
           sx={{ flexGrow: 1, p: 3, background: "transparent" }}
         >
           <Toolbar />
-          <MediaCardComponent item={trackDataItem} />
+          {trackDataItem && <MediaCardComponent item={trackDataItem} />}
           <Box sx={{ mt: 3 }}>
             <TrackList trackList={trackList} playlistID={playlistID} />
           </Box>

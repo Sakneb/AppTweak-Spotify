@@ -4,7 +4,11 @@ import Button from "@mui/material/Button";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import PlaylistModal from "./PlaylistModal";
 
-const AddPlaylist = ({ resetPlaylist }: any) => {
+interface AddPlaylistProps {
+  resetPlaylist: () => {};
+}
+
+const AddPlaylist = ({ resetPlaylist }: AddPlaylistProps) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -10,7 +9,16 @@ const fontStyle = {
   fontFamily: "CircularSpotifyTxT-Black, sans-serif",
 };
 
-export default function MediaCardComponent({ item }: any) {
+interface MediaItem {
+  name: string;
+  description?: string;
+  images?: { url: string }[];
+  owner?: {
+    display_name: string;
+  };
+}
+
+export default function MediaCardComponent({ item }: { item: MediaItem }) {
   return (
     <Card
       sx={{ display: "flex", background: "transparent", boxShadow: "none" }}
