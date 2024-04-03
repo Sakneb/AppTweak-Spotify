@@ -1,23 +1,12 @@
 .App {
   min-height: 100vh;
-  background: linear-gradient(135deg, #4300ff 0%, #717371 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(26, 24, 24, 0.951) 5%,
+    rgba(35, 128, 68, 0.978) 94%
+  );
+
   position: relative;
   font-family: "CircularSpotifyTxT-Black", sans-serif;
   overflow: hidden;
-}
-
-.App::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(
-    0deg,
-    #000 0%,
-    rgba(0, 0, 0, 0.5) 12%,
-    rgba(0, 0, 0, 0.1) 30%,
-    rgba(0, 0, 0, 0) 40%
-  );
 }

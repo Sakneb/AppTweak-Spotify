@@ -22,6 +22,25 @@ const ImageUploader = ({
     }
   };
 
+  const commonStyle = {
+    position: "absolute",
+    top: "4px",
+    bottom: "-5px",
+    left: 0,
+    right: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    backgroundColor: "rgba(0,0,0,0)",
+    opacity: 0,
+    transition: "background-color 0.3s, opacity 0.3s",
+    "&:hover": {
+      backgroundColor: "rgba(0,0,0,0.7)",
+      opacity: 1,
+    },
+  };
+
   return (
     <Box
       sx={{
@@ -44,32 +63,14 @@ const ImageUploader = ({
           image={selectedImage as string}
           alt="Selected Image"
           sx={{
-            height: "200px",
+            position: "relative",
+            top: "5px",
+            height: "190px",
             width: "100%",
             objectFit: "cover",
           }}
         />
-        <Box
-          sx={{
-            padding: "10px",
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            backgroundColor: "rgba(0,0,0,0)",
-            opacity: 0,
-            transition: "background-color 0.3s, opacity 0.3s",
-            "&:hover": {
-              backgroundColor: "rgba(0,0,0,0.7)",
-              opacity: 1,
-            },
-          }}
-        >
+        <Box sx={{ ...commonStyle }}>
           <Typography
             variant="h6"
             sx={{
@@ -83,7 +84,7 @@ const ImageUploader = ({
               },
             }}
           >
-            <PhotoCamera sx={{ mr: 1 }} />
+            <PhotoCamera sx={{ mr: 1, fontSize: "1rem" }} />
             Choose photo
           </Typography>
         </Box>

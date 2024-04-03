@@ -10,6 +10,7 @@ import {
 import ImageUploader from "./ImageUpload";
 import { Box } from "@mui/joy";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
 
 interface PlaylistModalProps {
   open: boolean;
@@ -20,6 +21,29 @@ interface PlaylistModalProps {
   img?: string;
   headerName: string;
 }
+const buttonStyle = {
+  backgroundColor: "#fff",
+  bottom: "10px",
+  color: "black",
+  borderRadius: "20px",
+  textTransform: "none",
+  fontWeight: "bold",
+  padding: "8px 18px",
+  fontSize: "0.875rem",
+  minWidth: "74px",
+  height: "40px",
+  transition: "transform 0.1s",
+  "&:hover": {
+    transform: "scale(1.05)",
+    backgroundColor: "#fff",
+  },
+
+  fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+};
+
+const fontStyle = {
+  fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+};
 
 const PlaylistModal: React.FC<PlaylistModalProps> = ({
   open,
@@ -32,20 +56,26 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
 }) => {
   const [newName, setNewName] = React.useState(name);
   const [newDescription, setNewDescription] = React.useState(description || "");
-
+  const dispatch = useDispatch();
   const handleSave = () => {
     onSave(newName, newDescription);
     console.log(newName, newDescription);
+   
   };
 
   return (
-    <Box sx={{ borderRadius: "16px", padding: "20px" }}>
+    <Box
+      sx={{
+        borderRadius: "16px",
+        padding: "20px",
+      }}
+    >
       <Dialog
         open={open}
         onClose={onClose}
         PaperProps={{
           style: {
-            backgroundColor: "rgba(40,40,40,255)",
+            backgroundColor: "rgba(18,18,18,255)",
           },
         }}
       >
@@ -54,16 +84,14 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            gap: "25px",
-            padding: "25px;",
+            padding: "30px;",
             paddingBottom: "0",
-            paddingTop: "4px;",
           }}
         >
           <DialogTitle
             sx={{
               color: "#fff",
-              fontFamily: "CircularSpotifyTxT-Black",
+              ...fontStyle,
               padding: "0",
               display: "flex",
               alignItems: "center",
@@ -73,7 +101,11 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
           </DialogTitle>
           <CloseIcon
             onClick={onClose}
-            sx={{ padding: "20px", cursor: "pointer", color: "white" }}
+            sx={{
+              padding: "15px",
+              cursor: "pointer",
+              color: "white",
+            }}
           />
         </Box>
 
@@ -82,13 +114,13 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            padding: "20px",
-            paddingBottom: "5px",
+            padding: "24px",
+            top: 0,
             paddingTop: "0",
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ImageUploader imgUploadData={img}/>
+            <ImageUploader imgUploadData={img} />
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -107,13 +139,13 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
                   disableUnderline: true,
                   style: {
                     color: "white",
-                    fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+                    ...fontStyle,
                   },
                 }}
                 InputLabelProps={{
                   style: {
                     color: "white",
-                    fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+                    ...fontStyle,
                   },
                 }}
                 sx={{
@@ -123,8 +155,8 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
                   color: "#fff",
                 }}
               />
+
               <TextField
-                margin="dense"
                 id="description"
                 label="Description"
                 type="text"
@@ -136,19 +168,19 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
                   disableUnderline: true,
                   style: {
                     color: "white",
-                    fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+                    ...fontStyle,
                   },
                 }}
                 InputLabelProps={{
                   style: {
                     color: "white",
-                    fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+                    ...fontStyle,
                   },
                 }}
                 sx={{
                   backgroundColor: "rgba(62,60,61,1)",
                   borderRadius: 1,
-                  marginBottom: 2,
+                  padding: "8px 0",
                 }}
                 multiline
                 rows={4}
@@ -156,26 +188,9 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
             </DialogContent>
           </Box>
         </Box>
-        <DialogActions sx={{ paddingRight: "40px" }}>
+        <DialogActions sx={{ paddingRight: "40px", paddingLeft: "20px" }}>
           <Button
-            sx={{
-              backgroundColor: "#fff",
-              color: "black",
-              borderRadius: "20px",
-              textTransform: "none",
-              fontWeight: "bold",
-              padding: "8px 18px",
-              fontSize: "0.875rem",
-              minWidth: "74px",
-              height: "40px",
-              transition: "transform 0.1s",
-              "&:hover": {
-                transform: "scale(1.05)",
-                backgroundColor: "#fff",
-              },
-
-              fontFamily: "CircularSpotifyTxT-Black, sans-serif",
-            }}
+            sx={{ ...buttonStyle }}
             onClick={handleSave}
             color="primary"
             variant="contained"
@@ -189,3 +204,6 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
 };
 
 export default PlaylistModal;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}

@@ -7,17 +7,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import styled from "@emotion/styled";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  color: "white",
+  color: "rgba(167,167,167,255) ",
   fontFamily: "CircularSpotifyTxT-Black, sans-serif",
   borderBottom: "none",
-  "&:hover": {
-    backgroundColor: "rgba(255, 255, 255, 0.08)",
-  },
 }));
 
+const fontStyle = {
+  fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+};
 function createData(
   id: number,
   track: string,
@@ -44,17 +45,28 @@ export default function TrackList() {
     >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow sx={{ borderBottom: "1px solid rgb(140,140,140)" }}>
             <StyledTableCell>#</StyledTableCell>
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell>Album</StyledTableCell>
             <StyledTableCell>Release date</StyledTableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <StyledTableCell sx={{ width: "2%" }} component="th" scope="row">
+            <TableRow
+              key={row.id}
+              sx={{
+                "&:hover": {
+                  backgroundColor: "rgba(90,89,89,255)",
+                  "& .action-icon": {
+                    visibility: "visible",
+                  },
+                },
+              }}
+            >
+              <StyledTableCell sx={{ width: "1%" }} component="th" scope="row">
                 {row.id}
               </StyledTableCell>
               <StyledTableCell sx={{ width: "40%" }}>
@@ -67,7 +79,7 @@ export default function TrackList() {
                   <Box>
                     <Typography
                       sx={{
-                        fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+                        ...fontStyle,
                       }}
                       variant="subtitle1"
                     >
@@ -76,7 +88,7 @@ export default function TrackList() {
 
                     <Typography
                       sx={{
-                        fontFamily: "CircularSpotifyTxT-Black, sans-serif",
+                        ...fontStyle,
                         color: "white",
                       }}
                       variant="body2"
@@ -89,8 +101,27 @@ export default function TrackList() {
               <StyledTableCell sx={{ width: "30%" }}>
                 {row.albumName}
               </StyledTableCell>
-              <StyledTableCell sx={{ width: "15%" }}>
+
+              <StyledTableCell
+                sx={{
+                  width: "13%",
+                }}
+              >
                 {row.date}
+                <Button
+                  sx={{
+                    color: "rgba(167,167,167,255)",
+                    backgroundColor: "transparent",
+                    "&:hover": { backgroundColor: "transparent" },
+                  }}
+                >
+                  <DeleteOutlineOutlinedIcon
+                    className="action-icon"
+                    sx={{
+                      visibility: "hidden",
+                    }}
+                  />
+                </Button>
               </StyledTableCell>
             </TableRow>
           ))}
