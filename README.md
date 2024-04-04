@@ -53,17 +53,6 @@ To use the Spotify Web API, here are the instructions you need to follow:
 
 **Note 2**: You don’t need any server. You only need to create a React app that will consume the Spotify API.
 
-## Timing & how to get help
-
-We will give you a **maximum of 10 days** to send us your code. If you finish it before, that's perfect! In any case, we will organize a half-way meeting of 15minutes 6 or 7 days after you receive the challenge. The objective is to do a quick ETA of your progress and to answer all the questions you might have. Our culture at AppTweak is defined by four values, Learn and Play are two of them. We learn from each other, thrive for developing new skills and developing ourselves. But we also know there isn't one best way of doing things, that’s why we like to explore. So we value people not afraid of asking for help when they don’t know, and willing to try new ideas.
-
-Therefore, if something is not clear, if you are stuck or have a question about the direction to take, really do not hesitate to reach out to us by email. You will receive additional information separately.
-
-Finally, in order to share your final work with us, push it on a public repo on Github, Gitlab, or Bitbucket.
-
-## Wireframes
-
-The wireframes will send separately.
 
 ## How to run this project?
 
