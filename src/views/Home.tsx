@@ -49,12 +49,11 @@ const Home: React.FC = () => {
       });
   };
 
-  const showTracksList = (item: any) => {
-    if (item) {
-      setPlaylistID(item.id);
-      setTrackDataItem(item);
+  const getTracksData = (id: string) => {
+    if (id) {
+      setPlaylistID(id);
       axios
-        .get(`https://api.spotify.com/v1/playlists/${item.id}/tracks`, {
+        .get(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((response) => {
@@ -66,6 +65,19 @@ const Home: React.FC = () => {
         });
     }
   };
+  const showTracksList = (item: any, test: any) => {
+    if (item && test == "reset") {
+      getTracksData(item);
+    } else {
+      setTrackDataItem(item);
+      getTracksData(item.id);
+    }
+  };
+  const resetTracksList = () => {
+    if (playlistID) {
+      showTracksList(playlistID, "reset");
+    }
+  };
 
   const resetPlaylist = () => {
     showPlaylist();
@@ -75,7 +87,7 @@ const Home: React.FC = () => {
     if (user) {
       showPlaylist();
     }
-  }, [user, accessToken, playlist]);
+  }, [user, accessToken]);
 
   return (
     <>
@@ -90,7 +102,7 @@ const Home: React.FC = () => {
         >
           <NavbarComponent
             playlistID={playlistID}
-            reset={showTracksList}
+            reset={resetTracksList}
             resetPlaylist={resetPlaylist}
           />
         </AppBar>
@@ -135,7 +147,7 @@ const Home: React.FC = () => {
                     <ListItemText
                       primary={item.name}
                       secondary={item.owner.display_name}
-                      onClick={() => showTracksList(item)}
+                      onClick={() => showTracksList(item, "show")}
                     />
                   </ListItemButton>
                 </ListItem>
@@ -150,7 +162,11 @@ const Home: React.FC = () => {
           <Toolbar />
           {trackDataItem && <MediaCardComponent item={trackDataItem} />}
           <Box sx={{ mt: 3 }}>
-            <TrackList trackList={trackList} playlistID={playlistID} />
+            <TrackList
+              trackList={trackList}
+              playlistID={playlistID}
+              reset={resetTracksList}
+            />
           </Box>
         </Box>
       </Box>
