@@ -1,4 +1,4 @@
-# AppTweak Frontend challenge (boilerplate)
+# Frontend challenge (boilerplate)
 
 ## Introduction
 
