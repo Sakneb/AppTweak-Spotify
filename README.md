@@ -1,4 +1,3 @@
-# Frontend challenge (boilerplate)
 
 ## Introduction
 
@@ -17,26 +16,8 @@ As a user (currently logged in):
 + I should be able to add any search results in the currently selected playlist.
 + I should be able to remove a given track from a playlist.
 
-### Nice to have
-
-If you want to play a bit more with it, you can add one or more of the following features:
-
-+ I should be able to edit a playlist's details.
-+ I should be able to sort the tracks by name, artist, duration, and so on (every track's field).
-+ Allow the user to reorder tracks within a given playlist.
-+ Display additional track information (bars, beats, sections, segments, … )
-+ Allow the user to switch to a Dark mode
-+ Want to do even more? Please feel free to surprise us! ;-)
 
 Here is the link to the Spotify documentation where you will find any information you need to manage this challenge with success: https://developer.spotify.com/documentation/web-api/reference.
-
-*To help you design the app, we provide you some wireframes. We ask you to respect the place of each element. However, feel free to polish the final rendering in order to improve the final result.*
-
-## Requirements
-
-To carry out this project, we ask you to use the following: React (latest version), TypeScript, functional components, and [Redux](https://redux-toolkit.js.org/) (with [redux-sagas](https://redux-saga.js.org/)).
-
-To polish the UI a bit, feel free to add any library that suits your needs: ElementUI, Material, Bootstrap, ...
 
 ## Setup
 
@@ -66,8 +47,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
